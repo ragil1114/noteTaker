@@ -1,7 +1,8 @@
 const fs = require('fs');
-const { promisify } = require('util');
-const readFileAsync = promisify(fs.readFile);
-const writeFileAsync = promisify(fs.writeFile);
+const util = require('util');
+const { parse } = require('path');
+const readFileAsync = util.promisify(fs.readFile);
+const writeFileAsync = util.promisify(fs.writeFile);
 const uuid = require('uuid');
 
 // class constructor for db
