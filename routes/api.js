@@ -7,15 +7,13 @@ router.get('notes', (req, res) => {
 
 router.post('/notes', (req, res) => {
     const newNote = req.body;
-    const notes = JSON.parse(db.getNotes());
-    const duplicateNote = notes.find(note => note.title === newNote.title);
-    if (!duplicateNote) {
-        notes.push(newNote);
-        db.saveNotes(JSON.stringify(notes));
-        res.status(200).json(notes);
-    } else {
-        res.status(400).json({ error: 'Note title must be unique' });
-    }
+    db.saveNote(newNote)
+    .then((note) => {
+        res.status(201).json(note);
+    })
+    .catch((err) => {
+        res.status(500).json(err);
+    });  
 });
 
 module.exports = router;
