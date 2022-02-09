@@ -2,28 +2,28 @@ const fs = require('fs');
 const { promisify } = require('util');
 const readFile = promisify(fs.readFile);
 const writeFile = promisify(fs.writeFile);
-const uuid = require('uuid');
+const uuid = require('uuid').v4;
 
 // class constructor for db
 class DB {
     getDB() {
-        return readFile('./db/db.json', 'utf8');
+        return readFileAsync('./db/db.json', 'utf8');
     }
 
     saveDB(data) {
-        return writeFile('./db/db.json', JSON.stringify(data));
+        return writeFileAsync('./db/db.json', JSON.stringify(data));
     }
 
     getNotes = () => {
         return this.getDB().then((data) => {
-            let notes;
+            let parsednotes;
             try {
-                notes = [].concat(JSON.parse(data));
+                parsednotes = [].concat(JSON.parse(data));
             } catch (error) {
                 notes = []; 
             }    
             
-            return notes;
+            return parsednotes;
         });
     }
 
@@ -33,16 +33,18 @@ class DB {
             return { error: 'Note must have a title and text' };
         }
         
-        const newNote = {
-            title,
-            text,
-            id: uuid()
-        };
+        const newNote = { title, text, id: uuid() };
         
         return this.getNotes()
         .then((notes) => [...notes, newNote])
-        .then((notes) => this.saveDB(notes))
+        .then((updatednotes) => this.saveDB(updatednotes))
         .then(() => newNote);
+    }
+
+    removeNote = (id) => {
+        return this.getNotes()
+        .then((notes) => notes.filter((note) => note.id !== id))
+        .then((updatednotes) => this.saveDB(updatednotes));
     }
 }
 
