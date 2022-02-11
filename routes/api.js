@@ -1,8 +1,10 @@
 const router = require('express').Router();
 const db = require('../db/db.js');
 
-router.get('notes', (req, res) => {
-    res.status(200).json(JSON.parse(db.getNotes()));
+router.get('/notes', (req, res) => {
+    db.getNotes().then((notes) => {
+        res.json(notes);
+    });
 });
 
 router.post('/notes', (req, res) => {
