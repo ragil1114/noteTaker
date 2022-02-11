@@ -34,7 +34,7 @@ class DB {
             return { error: 'Note must have a title and text' };
         }
         
-        const newNote = { title, text, id: uuid() };
+        const newNote = { title, text, id: uuid.v4() };
         
         return this.getNotes()
         .then((notes) => [...notes, newNote])
