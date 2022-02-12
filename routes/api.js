@@ -18,4 +18,15 @@ router.post('/notes', (req, res) => {
     });  
 });
 
+router.delete('/notes/:id', (req, res) => {
+    const id = req.params.id;
+    db.removeNote(id)
+    .then(() => {
+        res.status(200).json({ message: 'Note deleted' });
+    })
+    .catch((err) => {
+        res.status(500).json(err);
+    });
+});
+
 module.exports = router;
