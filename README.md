@@ -27,5 +27,5 @@ Heroku:
 https://notetaker1114.herokuapp.com/
 
 ### Images
-![demo](https://github.com/ragil1114/noteTaker/blob/main/assets/images/demo.png)
-![demo2](https://github.com/ragil1114/noteTaker/blob/main/assets/images/demo2.png)
+![demo](https://github.com/ragil1114/noteTaker/blob/main/public/assets/images/demo.png)
+![demo2](https://github.com/ragil1114/noteTaker/blob/main/public/assets/images/demo2.png)
